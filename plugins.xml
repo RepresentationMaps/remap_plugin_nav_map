@@ -1,0 +1,5 @@
+<library path="remap_plugin_nav_map">
+  <class name="PluginNavMap" type="remap::plugins::PluginNavMap" base_class_type="remap::plugins::PluginBase">
+    <description>A plugin for mapping a navigation map into ReMap.</description>
+  </class>
+</library>

@@ -1,0 +1,347 @@
+buildings:
+  - name: small_house
+    timezone: Europe/Madrid
+    is_active: true
+    is_enabled: true
+    properties:
+      []
+building_anchors:
+  - name: simple_building_anchor
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: small_house
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+floors:
+  - name: small_house_floor
+    level: 0
+    is_active: true
+    is_enabled: true
+    parent_key: small_house
+    anchor_key: small_house/simple_building_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+floor_anchors:
+  - name: simple_floor_anchor
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: small_house/small_house_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+zones:
+  - name: kitchen
+    type: 1
+    is_active: true
+    is_enabled: true
+    parent_key: small_house/small_house_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 8.2377834320068359
+            y: 2.5779948234558105
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 8.107670783996582
+            y: -4.4166836738586426
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.970576286315918
+            y: -4.3936409950256348
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5.0703091621398926
+            y: 2.8559632301330566
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5.0738024711608887
+            y: 2.8792681694030762
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: gym
+    type: 1
+    is_active: true
+    is_enabled: true
+    parent_key: small_house/small_house_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 4.2417535781860352
+            y: 4.9915204048156738
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.3152670860290527
+            y: 2.472684383392334
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.9765385389328003
+            y: 2.7111058235168457
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.814050555229187
+            y: 4.8978590965270996
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.8310421705245972
+            y: 5.0102686882019043
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: living_room
+    type: 1
+    is_active: true
+    is_enabled: true
+    parent_key: small_house/small_house_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 4.1457462310791016
+            y: 1.8394331932067871
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.0575551986694336
+            y: -4.1800508499145508
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -2.0320796966552734
+            y: -4.4422740936279297
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.8731135129928589
+            y: 2.1261982917785645
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.874109148979187
+            y: 2.1310849189758301
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: bedroom
+    type: 1
+    is_active: true
+    is_enabled: true
+    parent_key: small_house/small_house_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -2.9974286556243896
+            y: 1.7946867942810059
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -3.0939428806304932
+            y: -0.98077917098999023
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -8.54180908203125
+            y: -0.79309797286987305
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -8.486973762512207
+            y: 1.145296573638916
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -8.5051565170288086
+            y: 1.1626935005187988
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: playground
+    type: 1
+    is_active: true
+    is_enabled: true
+    parent_key: small_house/small_house_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -3.1897017955780029
+            y: -2.0222382545471191
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -3.3976294994354248
+            y: -4.899747371673584
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -8.6773099899291992
+            y: -2.0373983383178711
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -8.6935691833496094
+            y: -2.028162956237793
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+maps:
+  - name: small_house
+    filename: /home/user/exchange/mymap2.yaml
+    frame_id: map
+    is_active: true
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: small_house/small_house_floor
+    anchor_key: small_house/small_house_floor/simple_floor_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
