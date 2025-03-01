@@ -103,6 +103,7 @@ void PluginNavMap::initialize()
 
         // Store in map
         zone_map_[zone_name] = vertices;
+        this->pushFact(zone_name + " rdf:type ZOI");
       }
     } else {
         std::cerr << "No 'zones' found in the YAML file." << std::endl;
