@@ -29,8 +29,6 @@
 #include <remap_plugin_base/plugin_base.hpp>
 #include <remap_plugin_base/semantic_plugin.hpp>
 
-#include <nav_msgs/msg/occupancy_grid.hpp>
-
 #include <pal_stores_client/stores_client.hpp>
 #include <nlohmann/json.hpp>
 
@@ -41,12 +39,9 @@ namespace plugins
 class PluginNavMap : public SemanticPlugin
 {
 private:
-  nav_msgs::msg::OccupancyGrid map_;
   double walls_height_ {2.5};
   bool map_stored_ {false};
   bool map_processed_ {false};
-
-  rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr map_sub_;
 
   stores::StoresClient::SharedPtr stores_client_;
 
@@ -79,7 +74,6 @@ public:
   ~PluginNavMap();
   void run() override;
   void initialize() override;
-  void mapCallback(const nav_msgs::msg::OccupancyGrid::SharedPtr map);
 };
 }    // namespace plugins
 }  // namespace remap

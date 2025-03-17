@@ -39,6 +39,11 @@ PluginNavMap::PluginNavMap(
 PluginNavMap::~PluginNavMap()
 {
   timer_.reset();
+  for (auto & zone : zone_map_) {
+    semantic_map_->removeRegion(
+      zone.first,
+      *regions_register_);
+  }
   semantic_map_.reset();
   regions_register_.reset();
 }
@@ -48,16 +53,6 @@ void PluginNavMap::initialize()
   rclcpp::QoS map_qos(1);
   map_qos.reliable();
   map_qos.transient_local();
-
-
-  // stores_client_ = std::make_shared<stores::StoresClient>(node_ptr_.get());
-
-  /*
-  map_sub_ = node_ptr_->create_subscription<nav_msgs::msg::OccupancyGrid>(
-    "/map",
-    map_qos,
-    std::bind(&PluginNavMap::mapCallback, this, std::placeholders::_1));
-  */
 
   try {
     // Get package share directory
@@ -122,16 +117,6 @@ void PluginNavMap::initialize()
     }
 
     map_stored_ = true;
-}
-
-void PluginNavMap::mapCallback(
-  const nav_msgs::msg::OccupancyGrid::SharedPtr map)
-{
-  // Testing: we just read if a map is received
-  // and we build the walls; we do not expect any update
-  // on the map
-  RCLCPP_INFO(node_ptr_->get_logger(), "Map stored");
-  map_ = *map;
 }
 
 void PluginNavMap::run()
