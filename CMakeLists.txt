@@ -18,8 +18,6 @@ find_package(ament_cmake_auto REQUIRED)
 find_package(yaml-cpp REQUIRED)
 ament_auto_find_build_dependencies()
 
-message(WARN "YAML CPP INCLUDE DIRS: ${YAML_CPP_LIBRARIES}")
-
 # Targets
 add_library(remap_plugin_nav_map SHARED
 src/remap_plugin_nav_map/plugin_nav_map.cpp)
@@ -87,4 +85,12 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package()
+install(
+  DIRECTORY maps
+  DESTINATION share/${PROJECT_NAME}
+)
+
+ament_index_register_resource("remap.plugin_configuration" CONTENT "maps/small_house.yaml")
+ament_index_register_resource("pal_configuration.remap_manager" CONTENT config/00-nav_map.yml)
+
+ament_auto_package(INSTALL_TO_SHARE config)

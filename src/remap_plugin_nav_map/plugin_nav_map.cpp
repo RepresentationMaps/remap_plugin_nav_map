@@ -17,6 +17,9 @@
 
 #include <cmath>
 
+#include <ament_index_cpp/get_resources.hpp>
+#include <ament_index_cpp/get_resource.hpp>
+
 #include "remap_plugin_nav_map/plugin_nav_map.hpp"
 
 #include <ament_index_cpp/get_package_prefix.hpp>
@@ -50,20 +53,38 @@ PluginNavMap::~PluginNavMap()
 
 void PluginNavMap::initialize()
 {
-  rclcpp::QoS map_qos(1);
-  map_qos.reliable();
-  map_qos.transient_local();
+  auto descriptor = rcl_interfaces::msg::ParameterDescriptor{};
+
+  descriptor.description = "Name of the navigation map";
+  node_ptr_->declare_parameter("plugin/nav_map/navigation_map", "", descriptor);
+
+  auto navigation_map = node_ptr_->get_parameter("plugin/nav_map/navigation_map").as_string();
 
   try {
-    // Get package share directory
-    std::string package_name = "remap_plugin_nav_map";
-    std::string package_path = ament_index_cpp::get_package_prefix(package_name);
-
-    // Path to YAML file
-    std::string yaml_file = "/home/user/ex/src/remap_plugin_nav_map/maps/small_house.yaml";
+    std::filesystem::path map_path;
+    std::string resource_type = "remap.plugin_configuration";
+    for (const auto & resource : ament_index_cpp::get_resources(resource_type)) {
+      std::string resource_name = resource.first;
+      std::string resource_path = resource.second;
+      std::string resource_content;
+      ament_index_cpp::get_resource(resource_type, resource_name, resource_content);
+      std::istringstream resource_content_stream(resource_content);
+      std::string map_relative_path;
+      char path_delimiter = ';';
+      while (std::getline(resource_content_stream, map_relative_path, path_delimiter)) {
+        if (map_relative_path.find(navigation_map) != std::string::npos) {
+          map_path = std::filesystem::path(resource_path) / std::string("share") /
+            resource_name / map_relative_path;
+        }
+      }
+      if (!map_path.empty()) {
+        RCLCPP_INFO(node_ptr_->get_logger(), "Found model: %s", map_path.string().c_str());
+        break;
+      }
+    }
 
     // Load YAML file
-    YAML::Node config = YAML::LoadFile(yaml_file);
+    YAML::Node config = YAML::LoadFile(map_path.string());
 
     // Data structure to store zone vertices
 
@@ -99,6 +120,8 @@ void PluginNavMap::initialize()
         // Store in map
         zone_map_[zone_name] = vertices;
         this->pushFact(zone_name + " rdf:type ZOI");
+        // test code for querying. To be removed/improved
+        this->pushFact(zone_name + " roomType " + zone_name);
       }
     } else {
         std::cerr << "No 'zones' found in the YAML file." << std::endl;
