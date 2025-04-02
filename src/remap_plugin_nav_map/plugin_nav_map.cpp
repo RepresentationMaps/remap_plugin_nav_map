@@ -65,6 +65,9 @@ void PluginNavMap::initialize()
     std::string resource_type = "remap.plugin_configuration";
     for (const auto & resource : ament_index_cpp::get_resources(resource_type)) {
       std::string resource_name = resource.first;
+      if (resource_name != "remap_plugin_nav_map") {
+        continue;
+      }
       std::string resource_path = resource.second;
       std::string resource_content;
       ament_index_cpp::get_resource(resource_type, resource_name, resource_content);
