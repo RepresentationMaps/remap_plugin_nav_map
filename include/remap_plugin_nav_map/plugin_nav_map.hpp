@@ -17,9 +17,11 @@
 
 #include <tf2/LinearMath/Vector3.h>
 
+#include <map>
 #include <memory>
 #include <mutex>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <rclcpp/rclcpp.hpp>
@@ -54,9 +56,9 @@ private:
   tf2::Vector3 computeRayCastingSource(
     const std::vector<std::pair<tf2::Vector3, tf2::Vector3>> & bb);
   int countIntersections(
-  const std::vector<std::pair<tf2::Vector3, tf2::Vector3>> & polygon,
-  const tf2::Vector3 & candidate,
-  const tf2::Vector3 & ray_cast_source);
+    const std::vector<std::pair<tf2::Vector3, tf2::Vector3>> & polygon,
+    const tf2::Vector3 & candidate,
+    const tf2::Vector3 & ray_cast_source);
 
   void fillPolygon(
     const std::vector<std::pair<tf2::Vector3, tf2::Vector3>> & polygon,
@@ -75,6 +77,6 @@ public:
   void run() override;
   void initialize() override;
 };
-}    // namespace plugins
+}   // namespace plugins
 }  // namespace remap
-#endif  // REMAP_PLUGIN_FACES__PLUGIN_FACES_HPP_
+#endif  // REMAP_PLUGIN_NAV_MAP__PLUGIN_NAV_MAP_HPP_

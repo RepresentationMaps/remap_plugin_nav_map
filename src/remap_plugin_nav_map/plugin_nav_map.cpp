@@ -93,17 +93,17 @@ void PluginNavMap::initialize()
 
     // Parse YAML zones
     if (config["zones"]) {
-      for (const auto& zone : config["zones"]) {
+      for (const auto & zone : config["zones"]) {
         std::string zone_name = zone["name"].as<std::string>();
         std::vector<geometry_msgs::msg::PoseStamped> vertices;
 
         if (zone["vertexes"]) {
-          for (const auto& vertex : zone["vertexes"]) {
+          for (const auto & vertex : zone["vertexes"]) {
             geometry_msgs::msg::PoseStamped pose_stamped;
 
             // Fill pose timestamp (set current time, here simulated as 0)
             pose_stamped.header.stamp = rclcpp::Time(0);
-            pose_stamped.header.frame_id = "map"; // Frame ID
+            pose_stamped.header.frame_id = "map";  // Frame ID
 
             // Extract translation
             pose_stamped.pose.position.x = vertex["transform"]["translation"]["x"].as<double>();
@@ -127,22 +127,22 @@ void PluginNavMap::initialize()
         this->pushFact(zone_name + " roomType " + zone_name);
       }
     } else {
-        std::cerr << "No 'zones' found in the YAML file." << std::endl;
+      std::cerr << "No 'zones' found in the YAML file." << std::endl;
     }
-    for (const auto& [zone_name, poses] : zone_map_) {
+    for (const auto & [zone_name, poses] : zone_map_) {
       std::cout << "Zone: " << zone_name << " (Vertices: " << poses.size() << ")" << std::endl;
-      for (const auto& pose : poses) {
+      for (const auto & pose : poses) {
         std::cout << "  - Position: (" << pose.pose.position.x << ", "
                   << pose.pose.position.y << ", " << pose.pose.position.z << ")"
                   << std::endl;
-        }
       }
-    } catch (const std::exception& e) {
-      std::cerr << "Error loading YAML file: " << e.what() << std::endl;
-      return;
     }
+  } catch (const std::exception & e) {
+    std::cerr << "Error loading YAML file: " << e.what() << std::endl;
+    return;
+  }
 
-    map_stored_ = true;
+  map_stored_ = true;
 }
 
 void PluginNavMap::run()
@@ -152,15 +152,13 @@ void PluginNavMap::run()
   // and we add for each cell in the grid a voxel in the map
   // using the SemanticMapHandler activateVoxel function.
   // We do this remembering that the representation in remap
-  // is centre-centered by defaul, that is, for the 
+  // is centre-centered by defaul, that is, for the
   // element 0, 0 of the map, we want to activate the voxel
   // corresponding to the centre of that cell in the VDB grid
 
   // At this stage, being this the first version of the plugin,
   // we do not accept any reference frame for the map
   // if not the fixed frame of the MapHandler
-
-  // auto kitchen = stores_client_->loadRaw("/small_house/small_house_floor/kitchen", "eulero::Zone");
 
   if ((!map_stored_) || (map_stored_ && map_processed_)) {
     return;
@@ -173,13 +171,14 @@ void PluginNavMap::run()
     std::vector<std::pair<tf2::Vector3, tf2::Vector3>> vertex_couples;
     for (size_t i = 0; i < room.second.size(); ++i) {
       size_t i_p = (i + 1) % room.second.size();
-      vertex_couples.push_back({
-        {room.second[i].pose.position.x,
-         room.second[i].pose.position.y,
-         room.second[i].pose.position.z},
-        {room.second[i_p].pose.position.x,
-         room.second[i_p].pose.position.y,
-         room.second[i_p].pose.position.z}});
+      vertex_couples.push_back(
+          {
+            {room.second[i].pose.position.x,
+              room.second[i].pose.position.y,
+              room.second[i].pose.position.z},
+            {room.second[i_p].pose.position.x,
+              room.second[i_p].pose.position.y,
+              room.second[i_p].pose.position.z}});
     }
     for (const auto & vertex_couple : vertex_couples) {
       auto & wall_start = vertex_couple.first;
@@ -193,23 +192,23 @@ void PluginNavMap::run()
         for (double height = 0.0; height < walls_height_; height += 0.05) {
           wall_point.setZ(height);
           semantic_map_->insertVoxel(
-          wall_point.x(),
-          wall_point.y(),
-          wall_point.z(),
-          room_name,
-          *regions_register_);
+            wall_point.x(),
+            wall_point.y(),
+            wall_point.z(),
+            room_name,
+            *regions_register_);
         }
       }
     }
     fillPolygon(vertex_couples, room_name);
   }
-  
+
   RCLCPP_INFO(node_ptr_->get_logger(), "Map processed");
   map_processed_ = true;
 }
 
 std::vector<std::pair<tf2::Vector3, tf2::Vector3>> PluginNavMap::computePolygonBoundingBox(
-    const std::vector<std::pair<tf2::Vector3, tf2::Vector3>> & polygon)
+  const std::vector<std::pair<tf2::Vector3, tf2::Vector3>> & polygon)
 {
   std::vector<tf2::Vector3> unwrapped_polygon;
   for (const auto & segment : polygon) {
@@ -220,7 +219,7 @@ std::vector<std::pair<tf2::Vector3, tf2::Vector3>> PluginNavMap::computePolygonB
 }
 
 std::vector<std::pair<tf2::Vector3, tf2::Vector3>> PluginNavMap::computePolygonBoundingBox(
-    const std::vector<tf2::Vector3> & polygon)
+  const std::vector<tf2::Vector3> & polygon)
 {
   std::vector<std::pair<tf2::Vector3, tf2::Vector3>> bb;
   if (polygon.size() == 0) {
@@ -255,8 +254,8 @@ tf2::Vector3 PluginNavMap::computeRayCastingSource(
   // lowest segment
   tf2::Vector3 ray_cast_source;
   if (bb.size() > 0) {
-    ray_cast_source.setX((bb[0].first.x()+bb[0].second.x())/2.0);
-    ray_cast_source.setY(bb[0].first.y()-1.0);
+    ray_cast_source.setX((bb[0].first.x() + bb[0].second.x()) / 2.0);
+    ray_cast_source.setY(bb[0].first.y() - 1.0);
     ray_cast_source.setZ(0.0);
   }
   return ray_cast_source;
@@ -266,14 +265,14 @@ void PluginNavMap::printPolygon(const std::vector<std::pair<tf2::Vector3, tf2::V
 {
   for (const auto & segment : polygon) {
     printVector(segment.first);
-    std::cout<<" ";
+    std::cout << " ";
   }
-  std::cout<<"\n";
+  std::cout << "\n";
 }
 
 void PluginNavMap::printVector(const tf2::Vector3 & point)
 {
-  std::cout<<"{"<<point.x()<<", "<<point.y()<<", "<<point.z()<<"}";
+  std::cout << "{" << point.x() << ", " << point.y() << ", " << point.z() << "}";
 }
 
 int PluginNavMap::countIntersections(
@@ -312,8 +311,9 @@ int PluginNavMap::countIntersections(
     if (sd_x_sign != id_x_sign) {
       continue;
     }
-    if ((intersection_direction.length() <= segment_direction.length()) 
-      && ((candidate-ray_cast_source).length() > (intersection_p-ray_cast_source).length())) {
+    if ((intersection_direction.length() <= segment_direction.length()) &&
+      ((candidate - ray_cast_source).length() > (intersection_p - ray_cast_source).length()))
+    {
       intersections++;
     }
   }
