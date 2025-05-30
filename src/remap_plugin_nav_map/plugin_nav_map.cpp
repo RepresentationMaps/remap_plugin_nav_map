@@ -16,6 +16,7 @@
 #include <yaml-cpp/exceptions.h>
 
 #include <cmath>
+#include <filesystem>
 
 #include <ament_index_cpp/get_resources.hpp>
 #include <ament_index_cpp/get_resource.hpp>
@@ -110,8 +111,9 @@ void PluginNavMap::initialize()
           geometry_msgs::msg::TransformStamped tf_floor_to_map;
           try {
             tf_floor_to_map = tf_buffer_->lookupTransform(
-              semantic_map_->getFixedFrame(), floor, tf2::TimePointZero, tf2::Duration(static_cast<int>(1e10)));
-          } catch (tf2::TransformException &ex) {
+              semantic_map_->getFixedFrame(), floor, tf2::TimePointZero,
+              tf2::Duration(static_cast<int>(1e10)));
+          } catch (tf2::TransformException & ex) {
             RCLCPP_ERROR(node_ptr_->get_logger(), "Could not get transform: %s", ex.what());
             continue;
           }
@@ -121,19 +123,26 @@ void PluginNavMap::initialize()
             pose_in_floor_frame.header.frame_id = floor;
 
             // Extract translation
-            pose_in_floor_frame.pose.position.x = vertex["transform"]["translation"]["x"].as<double>();
-            pose_in_floor_frame.pose.position.y = vertex["transform"]["translation"]["y"].as<double>();
-            pose_in_floor_frame.pose.position.z = vertex["transform"]["translation"]["z"].as<double>();
+            pose_in_floor_frame.pose.position.x =
+              vertex["transform"]["translation"]["x"].as<double>();
+            pose_in_floor_frame.pose.position.y =
+              vertex["transform"]["translation"]["y"].as<double>();
+            pose_in_floor_frame.pose.position.z =
+              vertex["transform"]["translation"]["z"].as<double>();
 
             // Extract rotation (Quaternion)
-            pose_in_floor_frame.pose.orientation.x = vertex["transform"]["rotation"]["x"].as<double>();
-            pose_in_floor_frame.pose.orientation.y = vertex["transform"]["rotation"]["y"].as<double>();
-            pose_in_floor_frame.pose.orientation.z = vertex["transform"]["rotation"]["z"].as<double>();
-            pose_in_floor_frame.pose.orientation.w = vertex["transform"]["rotation"]["w"].as<double>();
+            pose_in_floor_frame.pose.orientation.x =
+              vertex["transform"]["rotation"]["x"].as<double>();
+            pose_in_floor_frame.pose.orientation.y =
+              vertex["transform"]["rotation"]["y"].as<double>();
+            pose_in_floor_frame.pose.orientation.z =
+              vertex["transform"]["rotation"]["z"].as<double>();
+            pose_in_floor_frame.pose.orientation.w =
+              vertex["transform"]["rotation"]["w"].as<double>();
 
             try {
               tf2::doTransform(pose_in_floor_frame, pose_in_semantic_map_frame, tf_floor_to_map);
-            } catch (tf2::TransformException &ex) {
+            } catch (tf2::TransformException & ex) {
               RCLCPP_ERROR(node_ptr_->get_logger(), "Transform failed: %s", ex.what());
               continue;
             }

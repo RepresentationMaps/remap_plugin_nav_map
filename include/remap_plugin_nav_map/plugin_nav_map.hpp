@@ -16,6 +16,8 @@
 #define REMAP_PLUGIN_NAV_MAP__PLUGIN_NAV_MAP_HPP_
 
 #include <tf2/LinearMath/Vector3.h>
+#include <tf2_ros/buffer.h>
+#include <tf2_ros/transform_listener.h>
 
 #include <map>
 #include <memory>
@@ -28,14 +30,8 @@
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
 
-#include <tf2_ros/buffer.h>
-#include <tf2_ros/transform_listener.h>
-
 #include <remap_plugin_base/plugin_base.hpp>
 #include <remap_plugin_base/semantic_plugin.hpp>
-
-#include <pal_stores_client/stores_client.hpp>
-#include <nlohmann/json.hpp>
 
 namespace remap
 {

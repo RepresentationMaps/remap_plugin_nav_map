@@ -37,13 +37,13 @@ ament_target_dependencies(
   ament_index_cpp
   geometry_msgs
   nav_msgs
-  pal_stores_client
   pluginlib
   rclcpp
   remap_map_handler
   remap_plugin_base
   remap_regions_register
   tf2
+  tf2_ros
 )
 
 target_link_libraries(
