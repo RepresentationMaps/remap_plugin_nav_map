@@ -20,9 +20,12 @@
 #include <ament_index_cpp/get_resources.hpp>
 #include <ament_index_cpp/get_resource.hpp>
 
-#include "remap_plugin_nav_map/plugin_nav_map.hpp"
-
 #include <ament_index_cpp/get_package_prefix.hpp>
+
+#include <geometry_msgs/msg/transform_stamped.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+
+#include "remap_plugin_nav_map/plugin_nav_map.hpp"
 
 namespace remap
 {
@@ -60,6 +63,9 @@ void PluginNavMap::initialize()
 
   auto navigation_map = node_ptr_->get_parameter("plugin/nav_map/navigation_map").as_string();
 
+  tf_buffer_ = std::make_shared<tf2_ros::Buffer>(node_ptr_->get_clock());
+  tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+
   try {
     std::filesystem::path map_path;
     std::string resource_type = "remap.plugin_configuration";
@@ -89,45 +95,61 @@ void PluginNavMap::initialize()
     // Load YAML file
     YAML::Node config = YAML::LoadFile(map_path.string());
 
-    // Data structure to store zone vertices
-
     // Parse YAML zones
     if (config["zones"]) {
       for (const auto & zone : config["zones"]) {
         std::string zone_name = zone["name"].as<std::string>();
         std::vector<geometry_msgs::msg::PoseStamped> vertices;
 
-        if (zone["vertexes"]) {
-          for (const auto & vertex : zone["vertexes"]) {
-            geometry_msgs::msg::PoseStamped pose_stamped;
+        if (zone["vertexes"] && (zone["type"].as<int>() == 0) && zone["is_active"].as<bool>()) {
+          geometry_msgs::msg::PoseStamped pose_in_semantic_map_frame;
+          geometry_msgs::msg::PoseStamped pose_in_floor_frame;
 
-            // Fill pose timestamp (set current time, here simulated as 0)
-            pose_stamped.header.stamp = rclcpp::Time(0);
-            pose_stamped.header.frame_id = "map";  // Frame ID
+          std::string floor = zone["parent_key"].as<std::string>();
+
+          geometry_msgs::msg::TransformStamped tf_floor_to_map;
+          try {
+            tf_floor_to_map = tf_buffer_->lookupTransform(
+              semantic_map_->getFixedFrame(), floor, tf2::TimePointZero, tf2::Duration(static_cast<int>(1e10)));
+          } catch (tf2::TransformException &ex) {
+            RCLCPP_ERROR(node_ptr_->get_logger(), "Could not get transform: %s", ex.what());
+            continue;
+          }
+
+          for (const auto & vertex : zone["vertexes"]) {
+            pose_in_floor_frame.header.stamp = rclcpp::Time(0);
+            pose_in_floor_frame.header.frame_id = floor;
 
             // Extract translation
-            pose_stamped.pose.position.x = vertex["transform"]["translation"]["x"].as<double>();
-            pose_stamped.pose.position.y = vertex["transform"]["translation"]["y"].as<double>();
-            pose_stamped.pose.position.z = vertex["transform"]["translation"]["z"].as<double>();
+            pose_in_floor_frame.pose.position.x = vertex["transform"]["translation"]["x"].as<double>();
+            pose_in_floor_frame.pose.position.y = vertex["transform"]["translation"]["y"].as<double>();
+            pose_in_floor_frame.pose.position.z = vertex["transform"]["translation"]["z"].as<double>();
 
             // Extract rotation (Quaternion)
-            pose_stamped.pose.orientation.x = vertex["transform"]["rotation"]["x"].as<double>();
-            pose_stamped.pose.orientation.y = vertex["transform"]["rotation"]["y"].as<double>();
-            pose_stamped.pose.orientation.z = vertex["transform"]["rotation"]["z"].as<double>();
-            pose_stamped.pose.orientation.w = vertex["transform"]["rotation"]["w"].as<double>();
+            pose_in_floor_frame.pose.orientation.x = vertex["transform"]["rotation"]["x"].as<double>();
+            pose_in_floor_frame.pose.orientation.y = vertex["transform"]["rotation"]["y"].as<double>();
+            pose_in_floor_frame.pose.orientation.z = vertex["transform"]["rotation"]["z"].as<double>();
+            pose_in_floor_frame.pose.orientation.w = vertex["transform"]["rotation"]["w"].as<double>();
 
-            vertices.push_back(pose_stamped);
+            try {
+              tf2::doTransform(pose_in_floor_frame, pose_in_semantic_map_frame, tf_floor_to_map);
+            } catch (tf2::TransformException &ex) {
+              RCLCPP_ERROR(node_ptr_->get_logger(), "Transform failed: %s", ex.what());
+              continue;
+            }
+
+            vertices.push_back(pose_in_semantic_map_frame);
           }
-        }
 
-        // Store in map
-        zone_map_[zone_name] = vertices;
-        this->pushFact(zone_name + " rdf:type ZOI");
-        // test code for querying. To be removed/improved
-        this->pushFact(zone_name + " roomType " + zone_name);
+          // Store in map
+          zone_map_[zone_name] = vertices;
+          this->pushFact(zone_name + " rdf:type ZOI");
+          // test code for querying. To be removed/improved
+          this->pushFact(zone_name + " roomType " + zone_name);
+        }
       }
     } else {
-      std::cerr << "No 'zones' found in the YAML file." << std::endl;
+      std::cerr << "No active 'zones' found in the YAML file." << std::endl;
     }
     for (const auto & [zone_name, poses] : zone_map_) {
       std::cout << "Zone: " << zone_name << " (Vertices: " << poses.size() << ")" << std::endl;

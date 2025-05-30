@@ -28,6 +28,9 @@
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
 
+#include <tf2_ros/buffer.h>
+#include <tf2_ros/transform_listener.h>
+
 #include <remap_plugin_base/plugin_base.hpp>
 #include <remap_plugin_base/semantic_plugin.hpp>
 
@@ -45,7 +48,8 @@ private:
   bool map_stored_ {false};
   bool map_processed_ {false};
 
-  stores::StoresClient::SharedPtr stores_client_;
+  std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
   std::map<std::string, std::vector<geometry_msgs::msg::PoseStamped>> zone_map_;
 
