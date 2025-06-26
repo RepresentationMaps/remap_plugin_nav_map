@@ -1,0 +1,48 @@
+---
+zones:
+  - name: working_area
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: map
+    vertexes:
+      - transform:
+          translation:
+            x: 1.852060317993164
+            y: -10.391921997070312
+            z: 0.003955841064453125
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.8718838691711426
+            y: -4.232999801635742
+            z: 0.0019106864929199219
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.3161907196044922
+            y: -4.308034896850586
+            z: 0.0030622482299804688
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -1.4281277656555176
+            y: -10.387627601623535
+            z: 0.006623268127441406
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1

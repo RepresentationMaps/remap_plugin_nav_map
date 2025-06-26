@@ -90,7 +90,8 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-ament_index_register_resource("remap.plugin_configuration" CONTENT "maps/small_house.yaml")
+# ament_index_register_resource("remap.plugin_configuration" CONTENT "maps/remap_simulation.yaml")
+ament_index_register_resource("remap.plugin_configuration" CONTENT "maps/hri_demo.yaml")
 ament_index_register_resource("pal_configuration.remap_manager" CONTENT config/00-nav_map.yml)
 
 ament_auto_package(INSTALL_TO_SHARE config)

@@ -59,6 +59,16 @@ void PluginNavMap::initialize()
 {
   auto descriptor = rcl_interfaces::msg::ParameterDescriptor{};
 
+  // In case an absolute path to the map file is defined
+  // then the plugin will use it.
+  // Otherwise, it will look among the available resources,
+  // using the map name defined as /plugin/nav_map/navigation_map
+  descriptor.description = "Navigation map path";
+  node_ptr_->declare_parameter("plugin/nav_map/navigation_map_path", "", descriptor);
+
+  auto navigation_map_path =
+    node_ptr_->get_parameter("plugin/nav_map/navigation_map_path").as_string();
+
   descriptor.description = "Name of the navigation map";
   node_ptr_->declare_parameter("plugin/nav_map/navigation_map", "", descriptor);
 
@@ -67,29 +77,48 @@ void PluginNavMap::initialize()
   tf_buffer_ = std::make_shared<tf2_ros::Buffer>(node_ptr_->get_clock());
   tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
+  std::filesystem::path map_path;
+
   try {
-    std::filesystem::path map_path;
-    std::string resource_type = "remap.plugin_configuration";
-    for (const auto & resource : ament_index_cpp::get_resources(resource_type)) {
-      std::string resource_name = resource.first;
-      if (resource_name != "remap_plugin_nav_map") {
-        continue;
+    // If an absolute path is provided, use it directly
+    if (!navigation_map_path.empty()) {
+      map_path = std::filesystem::path(navigation_map_path);
+      if (!std::filesystem::exists(map_path)) {
+        throw std::runtime_error("Provided navigation map path does not exist.");
       }
-      std::string resource_path = resource.second;
-      std::string resource_content;
-      ament_index_cpp::get_resource(resource_type, resource_name, resource_content);
-      std::istringstream resource_content_stream(resource_content);
-      std::string map_relative_path;
-      char path_delimiter = ';';
-      while (std::getline(resource_content_stream, map_relative_path, path_delimiter)) {
-        if (map_relative_path.find(navigation_map) != std::string::npos) {
-          map_path = std::filesystem::path(resource_path) / std::string("share") /
-            resource_name / map_relative_path;
+      RCLCPP_INFO(
+        node_ptr_->get_logger(), "Using provided navigation map path: %s",
+        map_path.string().c_str());
+    } else {
+      // Otherwise, search for the resource
+      RCLCPP_INFO(node_ptr_->get_logger(), "Searching for navigation map resource...");
+      std::string resource_type = "remap.plugin_configuration";
+      for (const auto & resource : ament_index_cpp::get_resources(resource_type)) {
+        std::string resource_name = resource.first;
+        if (resource_name != "remap_plugin_nav_map") {
+          continue;
         }
-      }
-      if (!map_path.empty()) {
-        RCLCPP_INFO(node_ptr_->get_logger(), "Found model: %s", map_path.string().c_str());
-        break;
+        std::string resource_path = resource.second;
+        RCLCPP_INFO(node_ptr_->get_logger(), "Found resource: %s", resource_path.c_str());
+        std::string resource_content;
+        ament_index_cpp::get_resource(resource_type, resource_name, resource_content);
+        std::istringstream resource_content_stream(resource_content);
+        std::string map_relative_path;
+        char path_delimiter = ';';
+        std::cout << "looking for map: " << navigation_map << std::endl;
+        while (std::getline(resource_content_stream, map_relative_path, path_delimiter)) {
+          if (map_relative_path.find(navigation_map) != std::string::npos) {
+            map_path = std::filesystem::path(resource_path) / std::string("share") /
+              resource_name / map_relative_path;
+            std::cout << "Found resource: " << map_relative_path << std::endl;
+          } else {
+            std::cout << "Skipping resource: " << map_relative_path << std::endl;
+          }
+        }
+        if (!map_path.empty()) {
+          RCLCPP_INFO(node_ptr_->get_logger(), "Found map: %s", map_path.string().c_str());
+          break;
+        }
       }
     }
 
@@ -155,6 +184,7 @@ void PluginNavMap::initialize()
           this->pushFact(zone_name + " rdf:type ZOI");
           // test code for querying. To be removed/improved
           this->pushFact(zone_name + " roomType " + zone_name);
+          std::cout << "Pushed fact about " << zone_name << std::endl;
         }
       }
     } else {
@@ -170,6 +200,7 @@ void PluginNavMap::initialize()
     }
   } catch (const std::exception & e) {
     std::cerr << "Error loading YAML file: " << e.what() << std::endl;
+    std::cerr << map_path.string() << std::endl;
     return;
   }
 

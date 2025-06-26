@@ -1,3 +1,4 @@
 /remap_manager:
   ros__parameters:
-    plugin/nav_map/navigation_map: "small_house"
+    plugin/nav_map/naviation_map_path: ""
+    plugin/nav_map/navigation_map: "hri_demo"

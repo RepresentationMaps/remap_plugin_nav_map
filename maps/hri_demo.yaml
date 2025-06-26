@@ -1,0 +1,1730 @@
+buildings:
+  - name: willow_garage
+    timezone: Europe/Madrid
+    is_active: false
+    is_enabled: false
+    properties:
+      []
+  - name: small_warehouse
+    timezone: Europe/Madrid
+    is_active: false
+    is_enabled: false
+    properties:
+      []
+  - name: small_office
+    timezone: Europe/Madrid
+    is_active: false
+    is_enabled: false
+    properties:
+      []
+  - name: hospital
+    timezone: Europe/Madrid
+    is_active: false
+    is_enabled: false
+    properties:
+      []
+  - name: pal_office
+    timezone: Europe/Madrid
+    is_active: true
+    is_enabled: false
+    properties:
+      - test_1
+      - test_2
+building_anchors:
+  - name: simple_building_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: willow_garage
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: simple_building_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: simple_building_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_office
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: elevator
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: elevator_right
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: elevator_left
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+floors:
+  - name: willow_garage_floor
+    level: 0
+    is_active: false
+    is_enabled: true
+    parent_key: willow_garage
+    anchor_key: willow_garage/simple_building_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: small_warehouse_floor
+    level: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse
+    anchor_key: small_warehouse/simple_building_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: small_office_floor
+    level: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_office
+    anchor_key: small_office/simple_building_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: hospital_floor_0
+    level: 0
+    is_active: false
+    is_enabled: true
+    parent_key: hospital
+    anchor_key: hospital/elevator
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: hospital_floor_1
+    level: 1
+    is_active: false
+    is_enabled: false
+    parent_key: hospital
+    anchor_key: hospital/elevator
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: pal_office_4th_floor
+    level: 4
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office
+    anchor_key: pal_office/elevator_right
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: pal_office_7th_floor
+    level: 7
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office
+    anchor_key: pal_office/elevator_right
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+floor_anchors:
+  - name: simple_floor_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: willow_garage/willow_garage_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: simple_floor_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: simple_floor_anchor
+    type: 0
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: dock
+    type: 2
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: dock
+    type: 2
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_1
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: dock_1
+    type: 2
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: aruco_1
+    type: 1
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: dock_2
+    type: 2
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+waypoints:
+  - name: waypoint_1
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    transform:
+      translation:
+        x: -4.3100848197937012
+        y: -1.7972431182861328
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_2
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    transform:
+      translation:
+        x: 9.5958185195922852
+        y: -2.1954977512359619
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_1
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    transform:
+      translation:
+        x: 4
+        y: -4
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_2
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    transform:
+      translation:
+        x: 4
+        y: -11
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_1
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_nav
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    transform:
+      translation:
+        x: 1
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_kitchen
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    transform:
+      translation:
+        x: 19
+        y: 7
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: waypoint_admin
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    transform:
+      translation:
+        x: -7
+        y: 19
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+waypoint_lists:
+  - name: list_1
+    is_active: false
+    is_enabled: false
+    parent_key: small_warehouse/small_warehouse_floor
+    waypoints:
+      - waypoint_key: small_warehouse/small_warehouse_floor/waypoint_1
+      - waypoint_key: small_warehouse/small_warehouse_floor/waypoint_2
+  - name: list_1
+    is_active: false
+    is_enabled: false
+    parent_key: small_office/small_office_floor
+    waypoints:
+      - waypoint_key: small_office/small_office_floor/waypoint_1
+      - waypoint_key: small_office/small_office_floor/waypoint_2
+  - name: list_1
+    is_active: false
+    is_enabled: false
+    parent_key: hospital/hospital_floor_1
+    waypoints:
+      - waypoint_key: hospital/hospital_floor_1/waypoint_1
+  - name: waypoint_list_nav
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    waypoints:
+      - waypoint_key: pal_office/pal_office_4th_floor/waypoint_nav
+  - name: list_2
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    waypoints:
+      - waypoint_key: pal_office/pal_office_7th_floor/waypoint_kitchen
+      - waypoint_key: pal_office/pal_office_7th_floor/waypoint_admin
+lanes:
+  - name: highway
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -4.3082318305969238
+            y: -1.6381640434265137
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 3.0595872402191162
+            y: -1.8450238704681396
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 9.6899999999999995
+            y: -1.9303369522094727
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway_1
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -4.3082318305969238
+            y: -6.4299999999999997
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 2.5779399871826172
+            y: -6.7163410186767578
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 9.7868108749389648
+            y: -6.8683438301086426
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: wall_1
+    type: 1
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -4.8399999999999999
+            y: 2
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5
+            y: 1.8
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.7999999999999998
+            y: -12.800000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -3
+            y: 0
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.5
+            y: 0
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.5
+            y: -7
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway_1
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    vertexes:
+      - transform:
+          translation:
+            x: 5.6100000000000003
+            y: 1.77
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.2999999999999998
+            y: 1.77
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.2999999999999998
+            y: -24
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway_2
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    vertexes:
+      - transform:
+          translation:
+            x: -4.3700000000000001
+            y: -1.1899999999999999
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -5.7300000000000004
+            y: -1.1899999999999999
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -5.7300000000000004
+            y: -23.600000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway_1
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 8.8800000000000008
+            y: -4
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 7.5
+            y: 0.90000000000000002
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -10
+            y: -3
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: highway_2
+    type: 2
+    width: 0.25
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -11.4
+            y: 0.88
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -4.3200000000000003
+            y: 2.5
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+zones:
+  - name: vo_shelves
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 1.4260187149047852
+            y: 3.6877021789550781
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 12.679903030395508
+            y: 3.3293838500976562
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 12.464428901672363
+            y: -0.71412181854248047
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.4043552875518799
+            y: -0.12448453903198242
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_containers
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: small_warehouse/small_warehouse_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -6.4779939651489258
+            y: -2.9940731525421143
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0.82630938291549683
+            y: -3.5667314529418945
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0.81309026479721069
+            y: -5.3265838623046875
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -6.5813827514648438
+            y: -4.8565788269042969
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_table
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: small_office/small_office_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 0
+            y: -6
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0
+            y: -11.5
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -2
+            y: -11.5
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -2
+            y: -6
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_chairs_1
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    vertexes:
+      - transform:
+          translation:
+            x: 7.1699999999999999
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 7.1699999999999999
+            y: 4.1200000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.4699999999999998
+            y: 4.1200000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.4699999999999998
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_chairs_2
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    vertexes:
+      - transform:
+          translation:
+            x: -4.2699999999999996
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -4.2699999999999996
+            y: 4
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -7.5700000000000003
+            y: 4
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -7.5700000000000003
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: wheelchair
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    vertexes:
+      - transform:
+          translation:
+            x: -4.8600000000000003
+            y: 1.5800000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -4.8600000000000003
+            y: -0.92000000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -5.7800000000000002
+            y: -0.92000000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -5.7800000000000002
+            y: 1.5800000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: reduced_speed_area
+    type: 3
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_0
+    vertexes:
+      - transform:
+          translation:
+            x: 4.3700000000000001
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.3700000000000001
+            y: 4.0899999999999999
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -4.1299999999999999
+            y: 3.9399999999999999
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -4.4000000000000004
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0
+            y: 11.5
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_chairs_1
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_1
+    vertexes:
+      - transform:
+          translation:
+            x: 7.1699999999999999
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 7.1699999999999999
+            y: 4.1200000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.4699999999999998
+            y: 4.1200000000000001
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.4699999999999998
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_chairs_2
+    type: 1
+    is_active: false
+    is_enabled: true
+    parent_key: hospital/hospital_floor_1
+    vertexes:
+      - transform:
+          translation:
+            x: -4.2699999999999996
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -4.2699999999999996
+            y: 4
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -7.5700000000000003
+            y: 4
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -7.5700000000000003
+            y: 8.9800000000000004
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_kitchen
+    type: 1
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_4th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: -0.76200000000000001
+            y: 8.4199999999999999
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0
+            y: 5.21
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -13.4
+            y: 1.52
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: -14.199999999999999
+            y: 5.0499999999999998
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_kitchen
+    type: 3
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_7th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 10.332992553710938
+            y: 0.97494494915008545
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 10.22240161895752
+            y: -10.77595329284668
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.573601245880127
+            y: -7.6111698150634766
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5.0658984184265137
+            y: 2.7904679775238037
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: glass_kitchen
+    type: 1
+    is_active: false
+    is_enabled: false
+    parent_key: pal_office/pal_office_7th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 5.2403717041015625
+            y: -12.276585578918457
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 3.8426029682159424
+            y: -12.380878448486328
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 2.9219748973846436
+            y: -13.208066940307617
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 4.0140628814697266
+            y: -14.067626953125
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5.404088020324707
+            y: -13.932689666748047
+            z: 0
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: kitchen
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 6.5612115859985352
+            y: 0.61663854122161865
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5.2527542114257812
+            y: -1.1965706348419189
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 3.8157031536102295
+            y: 0.074690960347652435
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 5.3018527030944824
+            y: 1.7404730319976807
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: vo_glass_kitchen
+    type: 1
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 1.4299609661102295
+            y: 8.8079614639282227
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 8.7527599334716797
+            y: 3.1746439933776855
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 7.9683356285095215
+            y: 2.4022359848022461
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 0.7153092622756958
+            y: 7.7074313163757324
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: living_room
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 4.9104347229003906
+            y: 1.9517841339111328
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 3.522451639175415
+            y: 3.0855119228363037
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 2.2620251178741455
+            y: 1.4234746694564819
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 3.5122053623199463
+            y: 0.33767324686050415
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+  - name: corridor
+    type: 0
+    is_active: true
+    is_enabled: true
+    parent_key: pal_office/pal_office_7th_floor
+    vertexes:
+      - transform:
+          translation:
+            x: 3.9522476196289062
+            y: -0.65258926153182983
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 2.6998162269592285
+            y: 0.34183433651924133
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 2.4060022830963135
+            y: 0.096152782440185547
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 1.9757093191146851
+            y: -0.18545734882354736
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+      - transform:
+          translation:
+            x: 3.4011609554290771
+            y: -1.2638779878616333
+            z: 0.10000000149011612
+          rotation:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+maps:
+  - name: willow_garage
+    filename: /opt/pal/alum/share/pal_maps/maps/willow_garage/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: willow_garage/willow_garage_floor
+    anchor_key: willow_garage/willow_garage_floor/simple_floor_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: small_warehouse
+    filename: /opt/pal/alum/share/pal_maps/maps/small_warehouse/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: small_warehouse/small_warehouse_floor
+    anchor_key: small_warehouse/small_warehouse_floor/simple_floor_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: small_office
+    filename: /opt/pal/alum/share/pal_maps/maps/small_office/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: small_office/small_office_floor
+    anchor_key: small_office/small_office_floor/simple_floor_anchor
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: hospital_floor_0
+    filename: /opt/pal/alum/share/pal_maps/maps/hospital_with_aruco/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: hospital/hospital_floor_0
+    anchor_key: hospital/hospital_floor_0/dock
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: hospital_floor_1
+    filename: /opt/pal/alum/share/pal_maps/maps/hospital_with_aruco/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: false
+    type: 1
+    namespace: ""
+    parent_key: hospital/hospital_floor_1
+    anchor_key: hospital/hospital_floor_1/dock
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: engineering
+    filename: /opt/pal/alum/share/pal_maps/maps/pal_office/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: false
+    type: 1
+    namespace: ""
+    parent_key: pal_office/pal_office_4th_floor
+    anchor_key: pal_office/pal_office_4th_floor/dock_1
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: workplaces
+    filename: /opt/pal/alum/share/pal_maps/maps/pal_office_7th_floor/map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: false
+    type: 1
+    namespace: ""
+    parent_key: pal_office/pal_office_7th_floor
+    anchor_key: pal_office/pal_office_7th_floor/dock_2
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: hri_and_kitchen_map
+    filename: /home/pal/hri_and_kitchen_map.yaml
+    frame_id: map
+    is_active: false
+    is_enabled: false
+    type: 1
+    namespace: ""
+    parent_key: pal_office/pal_office_7th_floor
+    anchor_key: pal_office/pal_office_7th_floor/dock_2
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: hri_demo_v1
+    filename: /home/pal/hri_demo_map_v1.yaml
+    frame_id: map
+    is_active: true
+    is_enabled: true
+    type: 1
+    namespace: ""
+    parent_key: pal_office/pal_office_7th_floor
+    anchor_key: pal_office/pal_office_7th_floor/dock_2
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
