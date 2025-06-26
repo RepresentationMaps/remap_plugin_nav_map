@@ -2,8 +2,8 @@
 Changelog for package remap_plugin_nav_map
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2025-06-26)
+------------------
 * added support to provide map via absolute path
 * making those linters smile (and fixing dependencies)
   Roses are red, your code should be clean,
